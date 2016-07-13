@@ -1,9 +1,5 @@
-FROM phusion/baseimage:0.9.19
+FROM marple/base 
 MAINTAINER Emaad Ahmed Manzoor <emanzoor@cs.stonybrook.edu>
-
-# Require git.tc.bbn.com credentials to build
-ARG BBN_USER
-ARG BBN_PASS
 
 # Set correct environment variables.
 ENV HOME /root
@@ -16,10 +12,6 @@ RUN apt-get update && apt-get install -y python python2.7 python-pip python-dev 
                                          build-essential gcc git
 RUN pip install --upgrade pip
 RUN pip install numpy scipy scikit-learn
-
-# ta3 Python bindings
-RUN git clone https://$BBN_USER:$BBN_PASS@git.tc.bbn.com/bbn/ta3-api-bindings-python.git
-RUN cd ta3-api-bindings-python; python setup.py install
 
 # Build StreamSpot Core
 RUN git clone https://github.com/sbustreamspot/sbustreamspot-core.git -b 2016.07-engagement
